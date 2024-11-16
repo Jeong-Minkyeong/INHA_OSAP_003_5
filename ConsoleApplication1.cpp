@@ -16,6 +16,16 @@ private:
 
 
     Node* root; //AVLtree의 루트node 포인터
+
+
+    /* Node 객체를 재귀적으로 삭제하여 메모리 해제 */
+    void deleteTree(Node* node) {
+        if (node != nullptr) {
+            deleteTree(node->left);
+            deleteTree(node->right);
+            delete node;
+        }
+    }
     /*노드의 height반환*/
     int getHeight(Node* n) {
         if (n == nullptr) return 0;// node가 없으면 0 반환, 존재하면 높이 반환
@@ -94,6 +104,12 @@ private:
 
 public:
     AvlTree() : root(nullptr) {}
+
+    ~AvlTree() {
+        deleteTree(root); // 동적 메모리 해제
+    }
+
+    DISALLOW_COPY_AND_ASSIGN(AvlTree);
 
     /*key를 삽입하는 함수*/
     void insert(int key) {
