@@ -1,20 +1,15 @@
-﻿#include <algorithm> //std::max()를 사용하기 위함
+﻿#ifndef AVL_TREE_H_
+#define AVL_TREE_H_
+#include <algorithm> //std::max()를 사용하기 위함
 #include <iostream>
-/*AVLtree의 node 클래스*/
-class Node {
-public:
-  int key;     // node의 키값
-  Node *left;  //왼쪽 자식node 포인터
-  Node *right; //오른쪽 자식node 포인터
-  int height;  // node 높이
+#include "node.h"
 
-  Node(int value) : key(value), left(nullptr), right(nullptr), height(1) {}
-};
 /*AVLtree의 클래스 정의*/
-class AvlTree {
+template <typename T>
+class AvlTree : public BinarySearchTreeSet<T> {
 
 public:
-  AvlTree() : root(nullptr) {}
+  AvlTree() : BinarySearchTreeSet<T>{} {}
 
   ~AvlTree() {
     deleteTree(root); // 동적 메모리 해제
@@ -24,11 +19,6 @@ public:
   void insert(int key) { root = insertNode(root, key); }
   /*트리가 비었는지 확인하는 함수*/
   bool empty() const { return isEmpty(); }
-
-  // 복사 생성자 관련 추후 논의 필요
-  // DISALLOW_COPY_AND_ASSIGN(AvlTree);
-private:
-  Node *root; // AVLtree의 루트node 포인터
 
   /* Node 객체를 재귀적으로 삭제하여 메모리 해제 */
   void deleteTree(Node *node) {
@@ -124,13 +114,9 @@ private:
   bool isEmpty() const { return root == nullptr; }
 };
 
-//
-int main() {
-  AvlTree t;
-  t.insert(10);
-  // t.insert(20);
-  // t.insert(5);
+  // 복사 생성자 관련 추후 논의 필요
+  // DISALLOW_COPY_AND_ASSIGN(AvlTree);
+private:
+  Node *root; // AVLtree의 루트node 포인터
 
-  std::cout << "Tree empty? " << (t.empty() ? "Yes" : "No") << std::endl;
-  return 0;
-}
+#endif
