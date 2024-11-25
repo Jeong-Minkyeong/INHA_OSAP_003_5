@@ -4,12 +4,12 @@
 #include "binary_tree.h"
 #include <algorithm>
 
-// AVL 트리 클래스
+/*AVL 트리 클래스*/
 template <typename T>
 class AvlTree : public BinaryTree<T> {
 public:
-    // AVL 삽입 구현
-    void insert(T key) {
+    /*AVL 삽입 구현(인터페이스*/)
+    void insert(T key) override {
         this->root_ = insertNode(this->root_, key);
     }
 
@@ -24,27 +24,27 @@ private:
         else
             return node; // 중복 키는 삽입하지 않음
 
-        // 높이 갱신
+        /*높이 갱신*/
         node->height_ = 1 + std::max(this->getHeight(node->left_), this->getHeight(node->right_));
 
-        // 균형 인수 계산
+        /*균형 인수 계산*/
         int balance = getBalanceFactor(node);
 
-        // LL 회전
+        /*LL 회전: 왼쪽 자식이 무거운 경우*/
         if (balance > 1 && key < node->left_->key_)
             return rightRotate(node);
 
-        // RR 회전
+        /*RR 회전: 오른쪽 자식이 무거운 경우*/
         if (balance < -1 && key > node->right_->key_)
             return leftRotate(node);
 
-        // LR 회전
+        /*LR 회전: 왼쪽 자식의 오른쪽 자식이 무거운 경우*/
         if (balance > 1 && key > node->left_->key_) {
             node->left_ = leftRotate(node->left_);
             return rightRotate(node);
         }
 
-        // RL 회전
+        /*RL 회전: 오른쪽 자식의 왼쪽 자식이 무거운 경우*/
         if (balance < -1 && key < node->right_->key_) {
             node->right_ = rightRotate(node->right_);
             return leftRotate(node);
@@ -52,13 +52,13 @@ private:
 
         return node;
     }
-
+     /*노드의 균형 인수 계산*/
     int getBalanceFactor(Node<T>* node) {
         if (node == nullptr)
             return 0;
         return this->getHeight(node->left_) - this->getHeight(node->right_);
     }
-
+    /*오른쪽 회전*/
     Node<T>* rightRotate(Node<T>* y) {
         Node<T>* x = y->left_;
         Node<T>* T2 = x->right_;
@@ -71,7 +71,7 @@ private:
 
         return x;
     }
-
+    /*왼쪽 회전*/
     Node<T>* leftRotate(Node<T>* x) {
         Node<T>* y = x->right_;
         Node<T>* T2 = y->left_;

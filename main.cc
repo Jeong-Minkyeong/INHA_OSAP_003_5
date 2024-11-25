@@ -63,30 +63,3 @@ void UserTest() {
 	}
 }
 
-
-/*#include <iostream>
-#include "avl_tree.h"
-
-int main() {
-    
-
-    // 트리에 노드를 직접 삽입
-    tree.insert(10);
-    tree.insert(5);
-    tree.insert(15);
-    tree.insert(2);
-    tree.insert(7);
-
-
-    // Find 테스트
-    std::cout << "Find (Depth + Height) of 10: " << tree.find(10) << "\n";
-    std::cout << "Find (Depth + Height) of 5: " << tree.find(5) << "\n";
-    std::cout << "Find (Depth + Height) of 2: " << tree.find(2) << "\n";
-    std::cout << "Find (Depth + Height) of 20: " << tree.find(20) << "\n"; // 없는 노드
-
-    // Size 테스트
-    std::cout << "Size of tree: " << tree.size() << "\n";
-
-    return 0;
-}
-*/
