@@ -16,7 +16,7 @@ int main() {
 }
 
 void UserTest() {
-	AvlTree Avltree;
+	AvlTree<int> tree;
 	int Q;
 	cin >> Q;
 	for (int i = 0; i < Q; i++)
@@ -28,33 +28,34 @@ void UserTest() {
 		if (command == "insert") {
 			int x;
 			cin >> x;
-			Avltree.insert(x);
+			tree.Insert(x);
 		}
 
 		else if (command == "find") {
 			int x;
 			cin >> x;
-			Avltree.find(x);
-		}
-
-		else if (command == "empty") {
-			Avltree.Empty();
+			cout<<tree.Find(x)<<endl;
 		}
 
 		else if (command == "size") {
-			Avltree.Size();
+			tree.Size();
 		}
 
-		else if (command == "erase") {
+		/*else if (command == "empty") {
+			tree.Empty();
+		}
+
+		else if (command == "rase") {
 			int x;
 			cin >> x;
-			Avltree.erase(x);
+			tree.Erase(x);
 		}
 
 		else if (command == "average") {
 			int x;
 			cin >> x;
-			Avltree.average(x);
-		}
+			tree.Average(x);
+		}*/
 	}
 }
+
