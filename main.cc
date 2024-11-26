@@ -28,37 +28,33 @@ void UserTest() {
 		if (command == "insert") {
 			int x;
 			cin >> x;
-			tree.insert(x);
+			tree.Insert(x);
 		}
 
 		else if (command == "find") {
 			int x;
 			cin >> x;
-			cout<<tree.find(x)<<endl;
-		}
-
-		else if (command == "size") {
-			tree.size();
-		}
-
-		/*else if (command == "empty") {
-			tree.Empty();
+			cout<<tree.Find(x)<<endl;
 		}
 
 		else if (command == "size") {
 			tree.Size();
 		}
 
-		else if (command == "erase") {
+		/*else if (command == "empty") {
+			tree.Empty();
+		}
+
+		else if (command == "rase") {
 			int x;
 			cin >> x;
-			tree.erase(x);
+			tree.Erase(x);
 		}
 
 		else if (command == "average") {
 			int x;
 			cin >> x;
-			tree.average(x);
+			tree.Average(x);
 		}*/
 	}
 }
