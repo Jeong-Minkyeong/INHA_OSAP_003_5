@@ -1,61 +1,66 @@
+#include "avl_tree.h"
 #include <iostream>
 #include <string>
-#include "avl_tree.h"
 
 using namespace std;
 
 void UserTest();
 
 int main() {
-	int T;
-	cin >> T;
-	for (int test_case = 1; test_case <= T; test_case++)
-	{
-		UserTest();
-	}
+  int T;
+  cin >> T;
+  for (int test_case = 1; test_case <= T; test_case++) {
+    UserTest();
+  }
 }
 
 void UserTest() {
-	AvlTree<int> tree;
-	int Q;
-	cin >> Q;
-	for (int i = 0; i < Q; i++)
-	{
-		string command;
-		cin >> command;
+  AvlTree<int> avltree;
+  int Q;
+  cin >> Q;
+  for (int i = 0; i < Q; i++) {
+    string command;
+    cin >> command;
 
-		
-		if (command == "insert") {
-			int x;
-			cin >> x;
-			tree.Insert(x);
-		}
+    if (command == "insert") {
+      int x;
+      cin >> x;
+      cout << avltree.Insert(x);
+      << "\n";
+    }
 
-		else if (command == "find") {
-			int x;
-			cin >> x;
-			cout<<tree.Find(x)<<endl;
-		}
+    else if (command == "erase") {
+      int x;
+      cin >> x;
+      cout << avltree.Erase(x) << "\n";
+    }
 
-		else if (command == "size") {
-			tree.Size();
-		}
+    else if (command == "empty") {
+      avltree.Empty();
+    }
 
-		/*else if (command == "empty") {
-			tree.Empty();
-		}
+    else if (command == "find") {
+      int x;
+      cin >> x;
+      cout << avltree.Find(x) << "\n";
+    }
 
-		else if (command == "rase") {
-			int x;
-			cin >> x;
-			tree.Erase(x);
-		}
+    else if (command == "size") {
+      avltree.Size();
+    }
 
-		else if (command == "average") {
-			int x;
-			cin >> x;
-			tree.Average(x);
-		}*/
-	}
+    else if (command == "rank") {
+      int x;
+      cin >> x;
+      cout << avltree.Rank(x) << "\n";
+    }
+
+    /**
+    else if (command == "average") {
+            int x;
+            cin >> x;
+            avltree.Average(x);
+    }
+    */
+  }
 }
-
