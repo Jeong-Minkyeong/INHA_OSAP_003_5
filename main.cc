@@ -25,8 +25,7 @@ void UserTest() {
     if (command == "insert") {
       int x;
       cin >> x;
-      cout << avltree.Insert(x);
-      << "\n";
+      cout << avltree.Insert(x) << "\n";
     }
 
     else if (command == "erase") {
@@ -49,18 +48,26 @@ void UserTest() {
       avltree.Size();
     }
 
+   /*
     else if (command == "rank") {
       int x;
       cin >> x;
       cout << avltree.Rank(x) << "\n";
     }
-
-    /**
+ */
+    
     else if (command == "average") {
             int x;
             cin >> x;
-            avltree.Average(x);
+            cout << avltree.Average(x) << "\n";
     }
-    */
+    
+    
+    else if (command == "ancestor") {
+            int x;
+            cin >> x;
+            cout << avltree.Ancestor(x).first << " " << avltree.Ancestor(x).second << "\n";
+    }
+    
   }
 }

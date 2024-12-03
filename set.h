@@ -2,6 +2,7 @@
 #define SET_H_
 
 #include "node.h"
+#include <iostream>
 
 /**
  * 이진 탐색 트리 클래스
@@ -28,6 +29,37 @@ public:
     return root_ ? root_->height_ - 1 : -1;
   } // 초기 root 노드의 높이가 1부터
   int Find(T key) const { return FindNode(root_, key, 0); }
+
+  std::pair<int, int> Ancestor(T key) const {
+    // key 값을 가진 노드의 깊이와 높이의 합
+    int findNode = Find(key);
+    // key 값을 가진 노드를 찾아 해당 노드의 포인터를 얻음
+    Node<T> *selectNode = SelectNode(key);
+    if (selectNode == root_) {
+      return {findNode, 0};
+    } else {
+      // 루트 노드까지의 key 값들의 합을 저장할 변수 초기화
+      int sum = 0;
+      // 부모 노드를 따라가며 key 값을 더함
+      while (selectNode->parent_) {
+        selectNode = selectNode->parent_;
+        sum += selectNode->key_;
+      }
+      return {findNode, sum};
+    }
+  }
+  int Average(T key) const {
+    // SelectNode로 키 값에 해당하는 노드 찾기
+    Node<T> *selectNode = SelectNode(key);
+
+    // 부분 트리에서 최솟값과 최댓값 찾기
+    int minKey = FindMinNode(selectNode).key_;
+    int maxKey = FindMaxNode(selectNode).key_;
+    // 산술평균 계산
+    int average = (minKey + maxKey) / 2.0;
+    // 결과 출력
+    return average;
+  }
 
   // 서브클래스에서 overriding
   virtual int Insert(T key) = 0;
@@ -74,6 +106,51 @@ private:
       return left; // 왼쪽에서 찾았으면 반환
 
     return FindNode(node->right_, key, depth + 1); // 오른쪽 검색
+  }
+
+  /**
+   * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값의 최솟값 리턴
+   * 동작 : 반복문을 통해서 key값이 가장 작은 노드를 찾아서 key_값 리턴
+   * 입력값 : node - 찾고자 하는 부분트리의 루트
+   */
+  Node<T> *FindMinNode(Node<T> *node) {
+    while (node->left_ != nullptr)
+      node = node->left_;
+    return node;
+  }
+  /**
+   * 기능 : node가 루트인 부분트리에서 노드들의 key 값의 최댓값 리턴
+   * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 리턴
+   * 입력값 : node - 찬고자 하는 부분트리의 루트
+   */
+  Node<T> *FindMaxNode(Node<T> *node) {
+    while (node->right_ != nullptr)
+      node = node->right_;
+    return node;
+  }
+
+  /**
+   * 기능 : 특정 키 값을 가진 노드를 리턴
+   * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 리턴
+   * 입력값 : key - 찾고자 하는 키 값
+   * 찾고자 하는 key값을 갖고 있는 Node가 없을 시 nullptr 리턴
+   */
+  Node<T> *SelectNode(T key) const {
+    Node<T> *currentNode = root_;
+    while (currentNode) {
+      if (currentNode->key_ == key) {
+        return currentNode; // 원하는 키 값을 찾으면 반환
+      }
+
+      // 키 값에 따라 왼쪽 또는 오른쪽으로 이동
+      if (key < currentNode->key_) {
+        currentNode = currentNode->left_;
+      } else {
+        currentNode = currentNode->right_;
+      }
+    }
+
+    return nullptr; // 키 값을 찾지 못한 경우 nullptr 반환
   }
 };
 
