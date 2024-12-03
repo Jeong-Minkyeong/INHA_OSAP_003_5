@@ -112,6 +112,7 @@ private:
    * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값의 최솟값 리턴
    * 동작 : 반복문을 통해서 key값이 가장 작은 노드를 찾아서 key_값 리턴
    * 입력값 : node - 찾고자 하는 부분트리의 루트
+   * 결과값 : key_값이 최소인 node 리턴
    */
   Node<T> *FindMinNode(Node<T> *node) {
     while (node->left_ != nullptr)
@@ -122,6 +123,7 @@ private:
    * 기능 : node가 루트인 부분트리에서 노드들의 key 값의 최댓값 리턴
    * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 리턴
    * 입력값 : node - 찬고자 하는 부분트리의 루트
+   * 결과값 : key_값이 최대인 node 리턴
    */
   Node<T> *FindMaxNode(Node<T> *node) {
     while (node->right_ != nullptr)
@@ -134,6 +136,7 @@ private:
    * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 리턴
    * 입력값 : key - 찾고자 하는 키 값
    * 찾고자 하는 key값을 갖고 있는 Node가 없을 시 nullptr 리턴
+   * 결과값 : key값을 갖고 있는 node 리턴
    */
   Node<T> *SelectNode(T key) const {
     Node<T> *currentNode = root_;
