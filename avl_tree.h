@@ -107,7 +107,7 @@ private:
         this->size_--;
       } else {
         // 2.3 자식이 둘인 경우 후임자(successor)를 찾아 대체
-        Node<T> *replace_node = FindMinNode(node->right_);
+        Node<T> *replace_node = Set::FindMinNode(node->right_);
         node->key_ = replace_node->key_;
         node->right_ = EraseNode(node->right_, replace_node->key_);
         if (node->right_)
@@ -240,12 +240,6 @@ private:
     NodeHeightUpdate(y);
 
     return y;
-  }
-
-  Node<T> *FindMinNode(Node<T> *node) {
-    while (node->left_ != nullptr)
-      node = node->left_;
-    return node;
   }
 };
 
