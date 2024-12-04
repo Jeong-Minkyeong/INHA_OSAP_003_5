@@ -36,11 +36,13 @@ TEST(NodeTest, ParameterizedConstructor) {
 
   // parent_ 포인터가 nullptr인지 확인
   EXPECT_EQ(node.parent_, nullptr);
+
   // left_ 포인터가 nullptr인지 확인
   EXPECT_EQ(node.left_, nullptr);
 
   // right_ 포인터가 nullptr인지 확인
   EXPECT_EQ(node.right_, nullptr);
+  
   // key_가 10인지 확인
   EXPECT_EQ(node.key_, 10);
 
