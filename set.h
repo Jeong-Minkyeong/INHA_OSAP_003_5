@@ -17,15 +17,20 @@ public:
     Set() : root_(nullptr), size_(0) {}
     virtual ~Set() { Delete(); }
 
-    // 추가 기능
+    //***추가 기능
     void Delete() { DeleteTree(root_); }
     // 트리의 루트 노드를 수정해야 할 때
     Node<T>*& GetRoot() { return root_; }
-
     // 수정하지 않고 루트를 읽기만 할 때
     const Node<T>* GetRoot() const { return root_; }
+    Node<T>* GetMinNode() {
+        return FindMinNode(root_);
+    }
+    Node<T>* GetMaxNode() {
+        return FindMaxNode(root_);
+    }
 
-    // 기본 기능 
+    //***기본 기능 
     bool Empty() const { return root_ == nullptr; }
     int Size() const { return size_; }
     int Height() const { return root_ ? root_->GetHeight() : -1;} // 초기 root 노드의 높이가 1부터
@@ -37,7 +42,7 @@ public:
     virtual int Insert(T key) = 0;
     virtual int Erase(T key) = 0;
 
-    // 고급 기능 : Rank 함수
+    //***고급 기능 : Rank 함수
     std::pair<int, int> Rank(T key) const {
         return GetNodeRank(root_, key, 0, 0);
     }
@@ -45,19 +50,6 @@ public:
 protected:
     Node<T>* root_;  // 트리의 루트 노드
     int size_;       // 트리의 노드 개수를 저장하는 멤버 변수
-
-    /**
-     * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값의 최솟값 리턴
-     * 동작 : 반복문을 통해서 key값이 가장 작은 노드를 찾아서 key_값 리턴
-     * 입력값 : node - 찾고자 하는 부분트리의 루트
-     * 결과값 : key_값이 최소인 node 리턴
-     */
-    Node<T> *FindMinNode(Node<T> *node) const {
-        while (node->GetLeft() != nullptr)
-            node = node->GetLeft();
-        return node;
-    }
-
     
 private:
     /**
@@ -170,6 +162,17 @@ private:
         return average;
     }
 
+    /**
+     * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값의 최솟값 리턴
+     * 동작 : 반복문을 통해서 key값이 가장 작은 노드를 찾아서 key_값 리턴
+     * 입력값 : node - 찾고자 하는 부분트리의 루트
+     * 결과값 : key_값이 최소인 node 리턴
+     */
+    Node<T> *FindMinNode(Node<T> *node) const {
+        while (node->GetLeft() != nullptr)
+            node = node->GetLeft();
+        return node;
+    }
 
     /**
      * 기능 : node가 루트인 부분트리에서 노드들의 key 값의 최댓값 리턴
