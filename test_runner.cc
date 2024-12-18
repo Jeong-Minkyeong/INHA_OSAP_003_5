@@ -150,16 +150,16 @@ TEST_F(AvlTreeSetFixture, TestGetRoot) {
 TEST_F(AvlTreeSetFixture, TestFindMaximum) {
   Node<int> *maximum_node = avltree_set_.GetMaxNode();
   ASSERT_NE(nullptr, maximum_node); // 최대값 노드가 nullptr이 아닌지 확인
-  ASSERT_EQ(60, maximum_node->GetKey());   // 최대값: 60
-  ASSERT_EQ(1, maximum_node->GetHeight()); // 높이: 1
+  EXPECT_EQ(60, maximum_node->GetKey()); // 최대값: 60
+  EXPECT_EQ(1, maximum_node->GetHeight()); // 높이: 1
 }
 
 /* 4. FindMinNode을 통해 나온 key와 height를 예측값과 비교 */
 TEST_F(AvlTreeSetFixture, TestFindMinimum) {
   Node<int> *minimum_node = avltree_set_.GetMinNode();
   ASSERT_NE(nullptr, minimum_node); // 최소값 노드가 nullptr이 아닌지 확인
-  ASSERT_EQ(20, minimum_node->GetKey());   // 최소값: 20
-  ASSERT_EQ(1, minimum_node->GetHeight()); // 높이: 1
+  EXPECT_EQ(20, minimum_node->GetKey()); // 최소값: 20
+  EXPECT_EQ(1, minimum_node->GetHeight()); // 높이: 1
 }
 
 /* 5. Insert를 통해 key로 87을 갖는 Node를 삽입 후, depth + height를 예측값과
