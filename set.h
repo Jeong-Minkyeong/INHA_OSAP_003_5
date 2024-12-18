@@ -52,13 +52,14 @@ public:
 
   // 수정하지 않고 루트를 읽기만 할 때
   const Node<T> *GetRoot() const { return root_; }
+  Node<T> *GetMinNode() { return FindMinNode(root_); }
+  Node<T> *GetMaxNode() { return FindMaxNode(root_); }
 
   // 기본 기능
   bool Empty() const { return root_ == nullptr; }
   int Size() const { return size_; }
-  int Height() const {
-    return root_ ? root_->GetHeight() : -1;
-  } // 초기 root 노드의 높이가 1부터
+  int Height() const { return root_ ? root_->GetHeight() : -1; }
+  // 초기 root 노드의 높이가 1부터
   std::pair<Node<T> *, int> Find(T key) const {
     return FindNode(root_, key, 0);
   }
