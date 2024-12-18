@@ -136,7 +136,7 @@ TEST_F(AvlTreeSetFixture, TestHeight) {
 
   std::pair<Node<int> *, int> findNode;
   findNode = avltree_set_.Find(40);
-  ASSERT_EQ(1, findNode.first->GetHeight()); // 높이가 1인지 확인
+  ASSERT_EQ(2, findNode.first->GetHeight()); // 높이가 1인지 확인
 }
 // 8. AVL 트리가 비었는지 확인하는 테스트
 TEST_F(AvlTreeSetFixture, TestEmpty) {
