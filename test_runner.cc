@@ -4,57 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
-/**
- * Node 클래스의 기본 생성자를 테스트하는 테스트 케이스
- */
-TEST(NodeTest, DefaultConstructor) {
-  // 템플릿 인자로 int를 사용하여 Node 인스턴스 생성
-  Node<int> node;
 
-  // parent_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.parent_, nullptr);
-
-  // left_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.left_, nullptr);
-
-  // right_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.right_, nullptr);
-
-  // key_가 기본값(0)인지 확인
-  EXPECT_EQ(node.key_, 0);
-
-  // height_가 1인지 확인
-  EXPECT_EQ(node.height_, 1);
-
-  // rank_가 1인지 확인
-  EXPECT_EQ(node.rank_, 1);
-}
-
-/**
- * Node 클래스의 키 값으로 초기화하는 생성자를 테스트하는 테스트 케이스
- */
-TEST(NodeTest, ParameterizedConstructor) {
-  // 키 값을 10으로 설정하여 Node 인스턴스 생성
-  Node<int> node(10);
-
-  // parent_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.parent_, nullptr);
-
-  // left_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.left_, nullptr);
-
-  // right_ 포인터가 nullptr인지 확인
-  EXPECT_EQ(node.right_, nullptr);
-  
-  // key_가 10인지 확인
-  EXPECT_EQ(node.key_, 10);
-
-  // height_가 1인지 확인
-  EXPECT_EQ(node.height_, 1);
-
-  // rank_가 1인지 확인
-  EXPECT_EQ(node.rank_, 1);
-}
 
 
 using namespace testing;
@@ -114,6 +64,82 @@ void AvlTreeSetFixture::SetUpTestCase()
 void AvlTreeSetFixture::TearDownTestCase()
 {
   std::cout << "TearDownTestCase called\n";
+}
+
+// 기본 생성자 테스트 케이스
+TEST_F(AvlTreeSetFixture, TestNodeDefaultConstructor) {
+    // 기본 생성자를 사용하여 Node 객체를 생성
+    Node<int> node;
+
+    // 기본 생성자가 적절히 초기화되었는지 확인
+    EXPECT_EQ(nullptr, node.GetParent());  // 부모는 nullptr
+    EXPECT_EQ(nullptr, node.GetLeft());    // 왼쪽 자식은 nullptr
+    EXPECT_EQ(nullptr, node.GetRight());   // 오른쪽 자식은 nullptr
+    EXPECT_EQ(0, node.GetKey());           // 기본 키 값은 0
+    EXPECT_EQ(1, node.GetHeight());        // 기본 높이는 1
+    EXPECT_EQ(1, node.GetRank());          // 기본 랭크는 1
+}
+
+// 키 값으로 초기화하는 생성자 테스트 케이스
+TEST_F(AvlTreeSetFixture, TestNodeConstructorWithKey) {
+    // 특정 키 값으로 Node 객체를 생성
+    Node<int> node(10);
+
+    // 주어진 키 값이 제대로 설정되었는지 확인
+    EXPECT_EQ(nullptr, node.GetParent());  // 부모는 nullptr
+    EXPECT_EQ(nullptr, node.GetLeft());    // 왼쪽 자식은 nullptr
+    EXPECT_EQ(nullptr, node.GetRight());   // 오른쪽 자식은 nullptr
+    EXPECT_EQ(10, node.GetKey());          // 키 값은 10
+    EXPECT_EQ(1, node.GetHeight());        // 기본 높이는 1
+    EXPECT_EQ(1, node.GetRank());          // 기본 랭크는 1
+}
+
+// 존재하지 않는 key 값에 대한 Find 함수 테스트
+TEST_F(AvlTreeSetFixture, TestFindNonExistentKey) {
+    // 존재하지 않는 key 값을 사용하여 Find 호출
+    auto result = avltree_set_.Find(100);  // 100은 트리에 존재하지 않는 값
+
+    // 결과는 nullptr과 height + 0이어야 합니다.
+    EXPECT_EQ(result.first, nullptr);  // 노드를 찾을 수 없으므로 nullptr 반환
+    EXPECT_EQ(result.second, 0);       // 높이 + 깊이는 0이어야 함
+}
+
+// 존재하지 않는 key 값에 대한 Rank 함수 테스트
+TEST_F(AvlTreeSetFixture, TestRankNonExistentKey) {
+    // 존재하지 않는 key 값을 사용하여 Rank 호출
+    auto result = avltree_set_.Rank(100);  // 100은 트리에 존재하지 않는 값
+
+    // Rank는 0을 반환해야 합니다.
+    EXPECT_EQ(result.first, 0);  // 존재하지 않으므로 rank는 0
+    EXPECT_EQ(result.second, 0); // 존재하지 않으므로 rank는 0
+}
+
+// 존재하지 않는 key 값에 대한 Erase 함수 테스트
+TEST_F(AvlTreeSetFixture, TestEraseNonExistentKey) {
+    // 존재하지 않는 key 값을 사용하여 Erase 호출
+    int result = avltree_set_.Erase(100);  // 100은 트리에 존재하지 않는 값
+
+    // 삭제할 노드가 없으므로, 0 (삭제 실패)을 반환해야 합니다.
+    EXPECT_EQ(result, 0);  // 삭제된 노드가 없으므로 0 반환
+}
+
+// 존재하지 않는 key 값에 대한 Ancestor 함수 테스트
+TEST_F(AvlTreeSetFixture, TestAncestorNonExistentKey) {
+    // 존재하지 않는 key 값을 사용하여 Ancestor 호출
+    auto result = avltree_set_.Ancestor(100);  // 100은 트리에 존재하지 않는 값
+
+    // 존재하지 않으면 (0, 0)을 반환해야 합니다.
+    EXPECT_EQ(result.first, 0);  // 깊이는 0
+    EXPECT_EQ(result.second, 0); // 키 값 합은 0
+}
+
+// 존재하지 않는 key 값에 대한 Average 함수 테스트
+TEST_F(AvlTreeSetFixture, TestAverageNonExistentKey) {
+    // 존재하지 않는 key 값을 사용하여 Average 호출
+    int result = avltree_set_.Average(100);  // 100은 트리에 존재하지 않는 값
+
+    // 존재하지 않으면 0을 반환해야 합니다.
+    EXPECT_EQ(result, 0);  // 평균은 0이어야 함
 }
 
 // 14. Right-Heavy 상황에서 height 변경이 제대로 이루어졌는지 확인
@@ -507,14 +533,6 @@ TEST_F(AvlTreeSetFixture, TestRightLeftCase)
   ASSERT_EQ(3, sum);
 }
 
-int main(int argc, char **argv)
-{
-  /**
-   * 테스트 실행을 위한 코드 추가
-   */
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
 
 // main 함수는 Google Test가 제공하는 기본 메인 함수를 사용
 int main(int argc, char **argv) {
