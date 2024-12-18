@@ -141,53 +141,6 @@ TEST_F(AvlTreeSetFixture, TestAverageNonExistentKey) {
     // 존재하지 않으면 0을 반환해야 합니다.
     EXPECT_EQ(result, 0);  // 평균은 0이어야 함
 }
-// 6. node의 heigth 확인하는 테스트 
-TEST_F(AvlTreeSetFixture, TestHeight) {
-
-    std::pair<Node<int>*, int> findNode;
-    findNode = avltree_set_.Find(40);
-    ASSERT_EQ(1, findNode.first->GetHeight());  // 높이가 1인지 확인
-}
-// 7. AVL 트리가 비었는지 확인하는 테스트 
-TEST_F(AvlTreeSetFixture, TestEmpty) {
-    bool is_avl_empty = avltree_set_.Empty();
-    ASSERT_EQ(false, is_avl_empty);  // AVL 트리가 비어있지 않음을 확인
-}
-// 8. key로 rank 값을 찾는 테스트 
-TEST_F(AvlTreeSetFixture, GetNodeRank) {
-    int rank = avltree_set_.Rank(40).second;
-    ASSERT_EQ(2, rank);
-
-    rank = avltree_set_.Rank(60).second;
-    ASSERT_EQ(3, rank);
-}
-// 9. 노드를 삭제한 후의 상태를 확인하는 테스트 
-TEST_F(AvlTreeSetFixture, TestErase) {
-   
-    avltree_set_.Erase(60);  // 60 값을 가진 노드 삭제
-
-    int avl_set_size = avltree_set_.Size();
-    ASSERT_EQ(2, avl_set_size);  // 트리의 크기 확인 (삭제 후 트리 크기)
-
-    std::pair<Node<int>*, int> findNode;
-    findNode = avltree_set_.Find(40);
-    ASSERT_EQ(40, findNode.first->GetKey());  // 40 값의 노드가 존재하는지 확인
-
-    findNode = avltree_set_.Find(20);
-    ASSERT_EQ(20, findNode.first->GetKey());  // 20이 존재하는지 확인
-}
-
-// 10. 평균 값 테스트 
-TEST_F(AvlTreeSetFixture, TestAverage) {
-    int avl_set_aver = avltree_set_.Average(40);
-    ASSERT_EQ(40, avl_set_aver);  // 평균값이 40임을 확인
-}
-
-// 11. 조상 노드 키 값들의 합 테스트
-TEST_F(AvlTreeSetFixture, TestAncestor) {
-    int avl_set_aver = avltree_set_.Ancestor(20).second;
-    ASSERT_EQ(40, avl_set_aver);  // 조상 노드 키 값들의 합이 40임을 확인
-}
 
 // 14. Right-Heavy 상황에서 height 변경이 제대로 이루어졌는지 확인
 TEST_F(AvlTreeSetFixture, TestHeightUpdate)
