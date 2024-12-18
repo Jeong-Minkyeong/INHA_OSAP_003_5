@@ -131,6 +131,54 @@ TEST_F(AvlTreeSetFixture, TestAverageNonExistentKey) {
   // 존재하지 않으면 0을 반환해야 합니다.
   EXPECT_EQ(result, 0); // 평균은 0이어야 함
 }
+/* 1. Set에서 key 값이 25인 노드를 찾고, depth + height를 예측값과 비교 */
+TEST_F(AvlTreeSetFixture, TestFindNode) {
+  auto result = avltree_set_.Find(25); // Find 함수 호출
+
+  ASSERT_EQ(nullptr, result.first); // 예상 결과: 노드가 없음
+  ASSERT_EQ(0, result.second);      // 예상 결과: 깊이 + 높이 합은 0
+}
+
+/* 2. Root의 data 값을 예측값과 비교 */
+TEST_F(AvlTreeSetFixture, TestGetRoot) {
+  Node<int> *root = avltree_set_.GetRoot();
+  ASSERT_NE(nullptr, root);      // 루트 노드가 nullptr이 아닌지 확인
+  ASSERT_EQ(40, root->GetKey()); // 루트 노드의 키 값은 40
+}
+
+/* 3. FindMaxNode을 통해 나온 key와 height를 예측값과 비교 */
+TEST_F(AvlTreeSetFixture, TestFindMaximum) {
+  Node<int> *maximum_node = avltree_set_.GetMaxNode();
+  ASSERT_NE(nullptr, maximum_node); // 최대값 노드가 nullptr이 아닌지 확인
+  ASSERT_EQ(60, maximum_node->GetKey());   // 최대값: 60
+  ASSERT_EQ(1, maximum_node->GetHeight()); // 높이: 1
+}
+
+/* 4. FindMinNode을 통해 나온 key와 height를 예측값과 비교 */
+TEST_F(AvlTreeSetFixture, TestFindMinimum) {
+  Node<int> *minimum_node = avltree_set_.GetMinNode();
+  ASSERT_NE(nullptr, minimum_node); // 최소값 노드가 nullptr이 아닌지 확인
+  ASSERT_EQ(20, minimum_node->GetKey());   // 최소값: 20
+  ASSERT_EQ(1, minimum_node->GetHeight()); // 높이: 1
+}
+
+/* 5. Insert를 통해 key로 87을 갖는 Node를 삽입 후, depth + height를 예측값과
+ * 비교 */
+TEST_F(AvlTreeSetFixture, TestInsertNode) {
+  avltree_set_.Insert(87); // 87 삽입
+  auto result = avltree_set_.Find(87);
+
+  ASSERT_NE(nullptr, result.first); // 삽입된 노드가 nullptr이 아닌지 확인
+  ASSERT_EQ(3, result.second); // 예상 깊이 + 높이 합: 3
+}
+
+/* 6. AvlTree의 size를 얻고, 예측값과 비교 */
+TEST_F(AvlTreeSetFixture, TestGetSize) {
+  ASSERT_EQ(3, avltree_set_.Size()); // 초기 상태에서 3개의 노드
+  avltree_set_.Insert(50);
+  ASSERT_EQ(4, avltree_set_.Size()); // 1개 추가 후 크기 확인
+}
+
 // 7. node의 heigth 확인하는 테스트
 TEST_F(AvlTreeSetFixture, TestHeight) {
 

@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/AvlTreeTest.dir/test_runner.cc.o -o AvlTreeTest   -L/home/kwonte/GoogleTestPrep/opensourcever/path_to_your_google_test/lib  -Wl,-rpath,/home/kwonte/GoogleTestPrep/opensourcever/path_to_your_google_test/lib -lgtest -lgtest_main 
