@@ -1,4 +1,0 @@
-/home/kwonte/GoogleTestPrep/opensourcever/build/CMakeFiles/AvlTreeTest.dir
-/home/kwonte/GoogleTestPrep/opensourcever/build/CMakeFiles/test.dir
-/home/kwonte/GoogleTestPrep/opensourcever/build/CMakeFiles/edit_cache.dir
-/home/kwonte/GoogleTestPrep/opensourcever/build/CMakeFiles/rebuild_cache.dir
