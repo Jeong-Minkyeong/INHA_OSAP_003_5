@@ -1,5 +1,32 @@
-#include "avl_tree.h"
+/**
+ * MIT License
+
+Copyright (c) 2024 오픈소스응용프로그래밍 3분반 5팀
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Written by : 오픈소스응용프로그래밍 3분반 5팀
+Date : 2024-11-26
+*/
+
 #include "node.h"
+#include "avl_tree.h"
 #include <gtest/gtest.h>
 #include <iostream>
 #include <stdexcept>
@@ -33,7 +60,7 @@ TEST(NodeTest, ConstructorWithValueTest) {
   std::cout << "Constructor With Value Test End\n";
 }
 
-// 3.소멸자 테스트
+// 3. 소멸자 테스트
 TEST(NodeTest, DestructorTest) {
   std::cout << "Destructor Test Start\n";
   {
@@ -94,7 +121,7 @@ void AvlTreeSetFixture::TearDownTestCase() {
   std::cout << "TearDownTestCase called\n";
 }
 
-/* 4. Set에서 key 값이 25인 노드를 찾고, depth + height를 예측값과 비교 */
+// 4. Set에서 key 값이 25인 노드를 찾고, depth + height를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestFindNode) {
   auto result = avltree_set_.Find(25); // Find 함수 호출
 
@@ -102,14 +129,14 @@ TEST_F(AvlTreeSetFixture, TestFindNode) {
   ASSERT_EQ(0, result.second);      // 예상 결과: 깊이 + 높이 합은 0
 }
 
-/* 5. Root의 data 값을 예측값과 비교 */
+// 5. Root의 data 값을 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestGetRoot) {
   Node<int> *root = avltree_set_.GetRoot();
   ASSERT_NE(nullptr, root);      // 루트 노드가 nullptr이 아닌지 확인
   ASSERT_EQ(40, root->GetKey()); // 루트 노드의 키 값은 40
 }
 
-/* 6. FindMaxNode을 통해 나온 key와 height를 예측값과 비교 */
+// 6. FindMaxNode을 통해 나온 key와 height를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestFindMaximum) {
   Node<int> *maximum_node = avltree_set_.GetMaxNode();
   ASSERT_NE(nullptr, maximum_node); // 최대값 노드가 nullptr이 아닌지 확인
@@ -117,7 +144,7 @@ TEST_F(AvlTreeSetFixture, TestFindMaximum) {
   EXPECT_EQ(1, maximum_node->GetHeight()); // 높이: 1
 }
 
-/* 7. FindMinNode을 통해 나온 key와 height를 예측값과 비교 */
+// 7. FindMinNode을 통해 나온 key와 height를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestFindMinimum) {
   Node<int> *minimum_node = avltree_set_.GetMinNode();
   ASSERT_NE(nullptr, minimum_node); // 최소값 노드가 nullptr이 아닌지 확인
@@ -125,8 +152,7 @@ TEST_F(AvlTreeSetFixture, TestFindMinimum) {
   EXPECT_EQ(1, minimum_node->GetHeight()); // 높이: 1
 }
 
-/* 8. Insert를 통해 key로 87을 갖는 Node를 삽입 후, depth + height를 예측값과
- * 비교 */
+// 8. Insert를 통해 key로 87을 갖는 Node를 삽입 후, depth + height를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestInsertNode) {
   avltree_set_.Insert(87); // 87 삽입
   auto result = avltree_set_.Find(87);
@@ -135,7 +161,7 @@ TEST_F(AvlTreeSetFixture, TestInsertNode) {
   ASSERT_EQ(3, result.second); // 예상 깊이 + 높이 합: 3
 }
 
-/* 9. AvlTree의 size를 얻고, 예측값과 비교 */
+// 9. AvlTree의 size를 얻고, 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestGetSize) {
   ASSERT_EQ(3, avltree_set_.Size()); // 초기 상태에서 3개의 노드
   avltree_set_.Insert(50);
@@ -149,11 +175,13 @@ TEST_F(AvlTreeSetFixture, TestHeight) {
   findNode = avltree_set_.Find(40);
   ASSERT_EQ(2, findNode.first->GetHeight()); // 높이가 2인지 확인
 }
+
 // 11. AVL 트리가 비었는지 확인하는 테스트
 TEST_F(AvlTreeSetFixture, TestEmpty) {
   bool is_avl_empty = avltree_set_.Empty();
   ASSERT_EQ(false, is_avl_empty); // AVL 트리가 비어있지 않음을 확인
 }
+
 // 12. key로 rank 값을 찾는 테스트
 TEST_F(AvlTreeSetFixture, GetNodeRank) {
   int rank = avltree_set_.Rank(40).second;
@@ -162,9 +190,9 @@ TEST_F(AvlTreeSetFixture, GetNodeRank) {
   rank = avltree_set_.Rank(60).second;
   ASSERT_EQ(3, rank);
 }
+
 // 13. 노드를 삭제한 후의 상태를 확인하는 테스트
 TEST_F(AvlTreeSetFixture, TestErase) {
-
   avltree_set_.Erase(60); // 60 값을 가진 노드 삭제
 
   int avl_set_size = avltree_set_.Size();
@@ -178,7 +206,7 @@ TEST_F(AvlTreeSetFixture, TestErase) {
   ASSERT_EQ(20, findNode.first->GetKey()); // 20이 존재하는지 확인
 }
 
-// 14. 평균 값 테스트
+// 14. 평균값 테스트
 TEST_F(AvlTreeSetFixture, TestAverage) {
   int avl_set_aver = avltree_set_.Average(40);
   ASSERT_EQ(40, avl_set_aver); // 평균값이 40임을 확인
@@ -361,12 +389,10 @@ TEST_F(AvlTreeSetFixture, TestRightRightCase) {
 }
 
 // 19. RightRotation 함수가 제대로 실행되는지 확인
-// 10 13 18 20 37 40 60 순서대로 Find하면서 높이 + depth를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestLeftLeftCase) {
   /**
-   * 13, 37, 10, 18을 key로 갖는 노드들을 추가 후, RightRotation함수가 제대로
-   * 실행되는지 확인 10 13 18 20 37 40 60를 Find하면서 높이 + depth를 예측값과
-   * 비교
+   * 13, 37, 10, 18을 key로 갖는 노드들을 추가 후, RightRotation함수가 제대로 실행되는지 확인 
+   * 10 13 18 20 37 40 60를 Find하면서 높이 + depth를 예측값과 비교
    */
   avltree_set_.Insert(13);
   avltree_set_.Insert(37);
@@ -434,12 +460,10 @@ TEST_F(AvlTreeSetFixture, TestLeftLeftCase) {
 }
 
 // 20. Left-Right Case에서 Rotation 함수들이 제대로 실행되는지 확인
-// 17 20 25 37 39 40 60 70를 Find하면서 높이 + depth를 예측값과 비교
 TEST_F(AvlTreeSetFixture, TestLeftRightCase) {
   /**
-   * 17, 37, 25, 39을 key로 갖는 노드들을 추가 후, Left-Right Case에서 Rotation
-   * 함수들이 제대로 실행되는지 확인 17 20 25 37 39 40 60 70를 Find하면서 높이 +
-   * depth를 예측값과 비교
+   * 17, 37, 25, 39을 key로 갖는 노드들을 추가 후, Left-Right Case에서 Rotation 함수들이 제대로 실행되는지 확인
+   * 17 20 25 37 39 40 60 70를 Find하면서 높이 + depth를 예측값과 비교
    */
   avltree_set_.Insert(17);
   avltree_set_.Insert(37);
@@ -509,8 +533,8 @@ TEST_F(AvlTreeSetFixture, TestLeftRightCase) {
 // 21. 마찬가지로 Right-Left Case에서 Rotation 함수들이 제대로 실행되는지 확인
 TEST_F(AvlTreeSetFixture, TestRightLeftCase) {
   /**
-   * 50, 75, 45, 55을 key로 갖는 노드들을 추가 후, LeftRotation 함수가 제대로
-   * 실행되는지 확인 20 40 45 50 55 60 75를 Find하면서 depth를 예측값과 비교
+   * 50, 75, 45, 55을 key로 갖는 노드들을 추가 후, LeftRotation 함수가 제대로 실행되는지 확인
+   * 20 40 45 50 55 60 75를 Find하면서 depth를 예측값과 비교
    */
   avltree_set_.Insert(50);
   avltree_set_.Insert(75);
@@ -577,8 +601,8 @@ TEST_F(AvlTreeSetFixture, TestRightLeftCase) {
   ASSERT_EQ(3, sum);
 }
 
-class RotationFixture
-    : public testing::TestWithParam<std::tuple<std::vector<int>, int>> {
+class RotationFixture : public testing::TestWithParam<std::tuple<std::vector<int>, int>> {
+
 protected:
   AvlTree<int> avl_set_; // AVL 트리 인스턴스 (테스트에서 사용할 객체)
 
@@ -591,20 +615,17 @@ protected:
 INSTANTIATE_TEST_CASE_P(
     InsertNodeAndExpectRoot, RotationFixture,
     testing::Values(
-        //많은 양의 Key 값을 넣은 케이스
-        std::make_tuple(std::vector<int>{50, 30, 80, 60, 130, 120, 201, 32, 98,
-                                         99, 11, 401, 23, 34, 69, 78, 121, 232},
-                        80),
-        //오른쪽으로 매우 쏠린 케이스
+        // 많은 양의 Key 값을 넣은 케이스
+        std::make_tuple(std::vector<int>{50, 30, 80, 60, 130, 120, 201, 32, 98, 99, 11, 401, 23, 34, 69, 78, 121, 232}, 80),
+        // 오른쪽으로 매우 쏠린 케이스
         std::make_tuple(std::vector<int>{70, 60, 50, 40, 30, 20, 10}, 40),
-        //왼쪽으로 매우 쏠린 케이스
+        // 왼쪽으로 매우 쏠린 케이스
         std::make_tuple(std::vector<int>{10, 20, 30, 40, 50, 60, 70}, 40),
-        //매우 큰 값을 넣은 케이스
-        std::make_tuple(std::vector<int>{300000, 1, 222203, 291126, 11, 26200,
-                                         44326},
-                        222203),
+        // 매우 큰 값을 넣은 케이스
+        std::make_tuple(std::vector<int>{300000, 1, 222203, 291126, 11, 26200, 44326}, 222203),
         //균형이 잘 맞는 케이스
         std::make_tuple(std::vector<int>{70, 30, 110, 90, 50}, 70)));
+
 // 22. Node를 파라미터로 받아서 트리에 삽입 후 예상되는 root 값 테스트
 TEST_P(RotationFixture, TestInsertNodeAndExpectRoot) {
   auto [param, expected_root_data] = GetParam();
@@ -617,7 +638,8 @@ TEST_P(RotationFixture, TestInsertNodeAndExpectRoot) {
   std::cout << " | Expected root's data = " << expected_root_data << "\n";
 
   /* 테스트 시나리오에 맞게 트리에 하나씩 값을 삽입
-   * 여기서는 파라미터로 받은 값들을 순차적으로 삽입*/
+   * 여기서는 파라미터로 받은 값들을 순차적으로 삽입
+   */
   for (int value : param) {
     avl_set_.Insert(value); // 수정된 Insert 함수 사용
   }

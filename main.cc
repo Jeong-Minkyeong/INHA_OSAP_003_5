@@ -29,7 +29,6 @@ Date : 2024-11-26
 #include <iostream>
 #include <string>
 
-
 using namespace std;
 
 void UserTest();
@@ -113,7 +112,7 @@ void UserTest() {
     }
 
     else {
-      cout << "Unknown command: " << command << "\n";
+      cout << "올바르지 않은 명령어입니다: " << command << "\n";
     }
   }
 }
