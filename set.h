@@ -36,8 +36,8 @@ Date : 2024-11-26
  * 기능 : 기본 이진 탐색
  * 설명 :
  * - 이진 탐색 기능을 하는 클래스. AVL트리에 기본 기능을 상속해주는 역할
- * - 기본 기능 + 고급 기능 + 추가 기능(기본, 고급 기능을 구현하는데 도움을 주는
- * 기능)으로 구성
+ * - 기본 기능 + 고급 기능 + 
+ * 추가 기능(기본, 고급 기능을 구현하는데 도움을 주는 기능)으로 구성
  * - 기본 기능과 고급 기능은 사용자 인터페이스 부분과 구현 부분으로 나누어짐
  */
 template <typename T> class Set {
@@ -52,6 +52,7 @@ public:
 
   // 수정하지 않고 루트를 읽기만 할 때
   const Node<T> *GetRoot() const { return root_; }
+
   Node<T> *GetMinNode() { return FindMinNode(root_); }
   Node<T> *GetMaxNode() { return FindMaxNode(root_); }
 
@@ -80,7 +81,7 @@ protected:
   int size_;      // 트리의 노드 개수를 저장하는 멤버 변수
 
   /**
-   * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값의 최솟값 리턴
+   * 기능 : node가 루트인 부분트리에서 노드들의 key_ 값 중 최솟값 리턴
    * 동작 : 반복문을 통해서 key값이 가장 작은 노드를 찾아서 key_값 리턴
    * 입력값 : node - 찾고자 하는 부분트리의 루트
    * 결과값 : key_값이 최소인 node 리턴
@@ -109,8 +110,8 @@ private:
   /**
    * 기능 : 특정 키 값을 가진 노드의 깊이와 높이의 합을 계산
    * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 깊이와 높이의 합 반환
-   * 입력값 : node - 현재 트리의 루트 노드 포인터, key - 찾고자 하는 키 값,
-   * depth - 현재 깊이 결과값 : 해당 노드의 깊이와 높이의 합, 노드가 없는 경우 0
+   * 입력값 : node - 현재 트리의 루트 노드 포인터, key - 찾고자 하는 키 값, depth - 현재 깊이
+   * 결과값 : 해당 노드의 깊이와 높이의 합, 노드가 없는 경우 0
    */
   std::pair<Node<T> *, int> FindNode(Node<T> *node, T key, int depth) const {
     // 노드가 없으면 0 반환
@@ -130,13 +131,12 @@ private:
   /**
    * 기능 : 특정 노드의 깊이 + 높이의 합과 랭크를 계산하는 함수
    * 동작 : 재귀적으로 트리를 순회하며 랭크와 합 계산
-   * 입력값 : node - 현재 노드, key - 찾고자 하는 키 값, depth - 현재 깊이,
-   * cur_rank - 현재까지 누적되어 계산된 랭크 결과값 : { 깊이 + 높이의 합, 순위
-   * }
+   * 입력값 : node - 현재 노드, key - 찾고자 하는 키 값, depth - 현재 깊이, cur_rank - 현재까지 누적되어 계산된 랭크
+   * 결과값 : { 깊이 + 높이의 합, 순위 }
    */
-  std::pair<int, int> GetNodeRank(Node<T> *node, T key, int depth,
-                                  int cur_rank) const {
+  std::pair<int, int> GetNodeRank(Node<T> *node, T key, int depth, int cur_rank) const {
     int sum = 0;
+    
     while (node) {
       if (key < node->GetKey()) {
         // 왼쪽 서브트리로 이동
@@ -213,9 +213,9 @@ private:
   }
 
   /**
-   * 기능 : node가 루트인 부분트리에서 노드들의 key 값의 최댓값 리턴
+   * 기능 : node가 루트인 부분트리에서 노드들의 key 값 중 최댓값 리턴
    * 동작 : 재귀적으로 해당 키 값을 가진 노드를 찾아서 리턴
-   * 입력값 : node - 찬고자 하는 부분트리의 루트
+   * 입력값 : node - 찾고자 하는 부분트리의 루트
    * 결과값 : key_값이 최대인 node 리턴
    */
   Node<T> *FindMaxNode(Node<T> *node) const {

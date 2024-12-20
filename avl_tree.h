@@ -48,8 +48,8 @@ private:
   /**
    * 기능 : AVL Tree Node 삽입 함수
    * 동작 : 적절한 위치에 노드를 삽입하고, 삽입 후 균형 조정 수행
-   * 입력값 : node - 현재 노드의 포인터, key - 삽입할 키 값, depth - 삽입하고자
-   * 하는 노드의 깊이 결과값 : 삽입된 노드의 깊이와 높이의 합
+   * 입력값 : node - 현재 노드의 포인터, key - 삽입할 키 값, depth - 삽입하고자 하는 노드의 깊이 
+   * 결과값 : 삽입된 노드의 깊이와 높이의 합
    */
   int InsertNode(Node<T> *&node, T key, int depth) {
     if (!node) {
@@ -90,8 +90,8 @@ private:
   /**
    * 기능 : AVL Tree Node 삭제 함수
    * 동작 : 트리에서 특정 키 값을 가진 노드를 삭제하고 트리를 균형 상태로 유지
-   * 입력값 : node - 현재 노드의 포인터, key - 삭제할 키 값, depth - 삭제하고자
-   * 하는 노드의 깊이 결과값 : 삭제된 노드의 깊이와 높이의 합
+   * 입력값 : node - 현재 노드의 포인터, key - 삭제할 키 값, depth - 삭제하고자하는 노드의 깊이 
+   * 결과값 : 삭제된 노드의 깊이와 높이의 합
    */
   int EraseNode(Node<T> *&node, T key, int depth) {
     if (node == nullptr) {
@@ -237,7 +237,7 @@ private:
 
   /**
    * 기능 : 노드의 랭크를 갱신하는 함수
-   * 동작 :
+   * 동작 : 노드의 왼쪽과 오른쪽 자식의 랭크를 기반으로 현재 노드의 랭크를 갱신
    * 입력값 : node - 랭크를 갱신할 노드
    * 결과값 : 없음
    */
@@ -251,9 +251,9 @@ private:
 
   /**
    * 기능 : 노드의 균형 인수 계산 함수
-   * 동작 : 왼쪽 서브트리의 높이와 오른쪽 서브트리의 높이의 차(균형 인수) 계산
-   * 후 반환 입력값 : node - 균형 인수를 계산할 노드 결과값 : 균형 인수 (왼쪽
-   * 서브트리 높이 - 오른쪽 서브트리 높이)
+   * 동작 : 왼쪽 서브트리의 높이와 오른쪽 서브트리의 높이의 차(균형 인수) 계산 후 반환
+   * 입력값 : node - 균형 인수를 계산할 노드 
+   * 결과값 : 균형 인수(왼쪽 서브트리 높이 - 오른쪽 서브트리 높이)
    */
   int GetBalanceFactor(Node<T> *node) {
     if (node == nullptr)
@@ -284,8 +284,7 @@ private:
   Node<T> *LeftRotate(Node<T> *node) {
     // node: 회전 전의 루트 노드 (불균형이 발생한 노드)
     // new_root: node의 오른쪽 자식 노드 (회전 후 새로운 루트 노드가 됨)
-    // moved_node: new_root의 왼쪽 자식 노드 (회전 과정에서 위치가 변경되는
-    // 서브트리)
+    // moved_node: new_root의 왼쪽 자식 노드 (회전 과정에서 위치가 변경되는 서브트리)
     Node<T> *new_root = node->GetRight();
     Node<T> *moved_node = new_root->GetLeft();
 
@@ -340,8 +339,7 @@ private:
   Node<T> *RightRotate(Node<T> *node) {
     // node: 회전 전의 루트 노드 (불균형이 발생한 노드)
     // new_root: node의 왼쪽 자식 노드 (회전 후 새로운 루트 노드가 됨)
-    // moved_node: new_root의 오른쪽 자식 노드 (회전 과정에서 위치가 변경되는
-    // 서브트리)
+    // moved_node: new_root의 오른쪽 자식 노드 (회전 과정에서 위치가 변경되는 서브트리)
     Node<T> *new_root = node->GetLeft();
     Node<T> *moved_node = new_root->GetRight();
 
